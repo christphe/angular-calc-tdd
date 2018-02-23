@@ -9,6 +9,7 @@ import { CalcService } from './service/calc.service';
 import { MultiplyService } from './service/operations/multiply.service';
 import { RouterModule } from '@angular/router';
 import { CALC_ROUTES } from './calc.route';
+import { CalcPageComponent } from './calc-page/calc-page.component';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { CALC_ROUTES } from './calc.route';
     CalcService
   ],
   declarations: [
-    CalcComponent
+    CalcComponent,
+    CalcPageComponent
   ],
   exports: [
     CalcComponent
