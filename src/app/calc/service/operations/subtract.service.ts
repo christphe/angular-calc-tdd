@@ -3,15 +3,11 @@ import { OperationService } from '../operation.service.interface';
 
 @Injectable()
 export class SubtractService implements OperationService {
-  constructor() { }
 
-  subtract(a: number, b: number): number {
-    return a - b;
+  constructor() {
   }
 
   calc(a: number, b: number): number {
-    return this.subtract(a, b);
+    return a - b;
   }
-
-
 }

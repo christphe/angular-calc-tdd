@@ -4,13 +4,10 @@ import { OperationService } from '../operation.service.interface';
 @Injectable()
 export class AddService implements OperationService {
 
-  constructor() { }
-
-  add(a: number, b: number): number {
-    return a + b;
+  constructor() {
   }
 
   calc(a: number, b: number): number {
-    return this.add(a, b);
+    return a + b;
   }
 }
