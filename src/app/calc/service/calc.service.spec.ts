@@ -4,7 +4,7 @@ import { CalcService } from './calc.service';
 
 import { AddService } from './operations/add.service';
 import { MultiplyService } from './operations/multiply.service';
-import { SubstractService } from './operations/substract.service';
+import { SubtractService } from './operations/subtract.service';
 
 let mocks = {
   AddService: undefined,
@@ -18,7 +18,7 @@ describe('CalcService', () => {
     mocks = {
       AddService: registerOperatorMock(AddService),
       MultiplyService: registerOperatorMock(MultiplyService),
-      SubstractService: registerOperatorMock(SubstractService)
+      SubstractService: registerOperatorMock(SubtractService)
     };
     TestBed.configureTestingModule({
       providers: providers
@@ -65,7 +65,7 @@ describe('CalcService', () => {
     expect(result).toEqual(expectedResult);
   }));
 
-  it('should return value from substract service when operator is -', inject([CalcService], (service: CalcService) => {
+  it('should return value from subtract service when operator is -', inject([CalcService], (service: CalcService) => {
     // given
     const expectedResult = 226584521032188;
     mocks.SubstractService.calc.and.returnValue(expectedResult);

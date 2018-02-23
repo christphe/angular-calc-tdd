@@ -10,7 +10,7 @@ import { MultiplyService } from './service/operations/multiply.service';
 import { RouterModule } from '@angular/router';
 import { CALC_ROUTES } from './calc.route';
 import { CalcPageComponent } from './calc-page/calc-page.component';
-import { SubstractService } from './service/operations/substract.service';
+import { SubtractService } from './service/operations/subtract.service';
 
 @NgModule({
   imports: [
@@ -22,7 +22,7 @@ import { SubstractService } from './service/operations/substract.service';
   providers: [
     AddService,
     MultiplyService,
-    SubstractService,
+    SubtractService,
     CalcService
   ],
   declarations: [

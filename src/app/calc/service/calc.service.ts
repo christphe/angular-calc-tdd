@@ -3,7 +3,7 @@ import { OperationService } from './operation.service.interface';
 
 import { AddService } from './operations/add.service';
 import { MultiplyService } from './operations/multiply.service';
-import { SubstractService } from './operations/substract.service';
+import { SubtractService } from './operations/subtract.service';
 
 @Injectable()
 export class CalcService {
@@ -17,7 +17,7 @@ export class CalcService {
   private initServiceMap(injector: Injector) {
     this.serviceMap.set('+', injector.get(AddService));
     this.serviceMap.set('*', injector.get(MultiplyService));
-    this.serviceMap.set('-', injector.get(SubstractService));
+    this.serviceMap.set('-', injector.get(SubtractService));
   }
 
   calc(operator: string, a: number, b: number) {
