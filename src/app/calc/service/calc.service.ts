@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, Injector } from '@angular/core';
 import { OperationService } from './operation.service.interface';
 
 import { AddService } from './operations/add.service';
@@ -10,13 +10,14 @@ export class CalcService {
 
   private serviceMap = new Map<string, OperationService>();
 
-  constructor(
-    addService: AddService,
-    multiplyService: MultiplyService,
-    substractService: SubstractService) {
-    this.serviceMap.set('+', addService);
-    this.serviceMap.set('*', multiplyService);
-    this.serviceMap.set('-', substractService);
+  constructor(injector: Injector) {
+    this.initServiceMap(injector);
+  }
+
+  private initServiceMap(injector: Injector) {
+    this.serviceMap.set('+', injector.get(AddService));
+    this.serviceMap.set('*', injector.get(MultiplyService));
+    this.serviceMap.set('-', injector.get(SubstractService));
   }
 
   calc(operator: string, a: number, b: number) {
