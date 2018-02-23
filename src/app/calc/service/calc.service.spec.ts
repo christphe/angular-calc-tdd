@@ -6,23 +6,32 @@ import { AddService } from './operations/add.service';
 import { MultiplyService } from './operations/multiply.service';
 import { SubstractService } from './operations/substract.service';
 
-let addServiceMock;
-let multiplyServiceMock;
-let substractServiceMock;
+let mocks = {
+  AddService: undefined,
+  MultiplyService: undefined,
+  SubstractService: undefined
+};
 
 describe('CalcService', () => {
   beforeEach(() => {
-    addServiceMock = jasmine.createSpyObj('AddService', ['calc']);
-    multiplyServiceMock = jasmine.createSpyObj('MultiplyService', ['calc']);
-    substractServiceMock = jasmine.createSpyObj('SubstractService', ['calc']);
+    const providers: any[] = [CalcService];
+    mocks = {
+      AddService: registerOperatorMock(AddService),
+      MultiplyService: registerOperatorMock(MultiplyService),
+      SubstractService: registerOperatorMock(SubstractService)
+    };
     TestBed.configureTestingModule({
-      providers: [
-        CalcService,
-        { provide: AddService, useValue: addServiceMock },
-        { provide: MultiplyService, useValue: multiplyServiceMock },
-        { provide: SubstractService, useValue: substractServiceMock }
-      ]
+      providers: providers
     });
+
+    function registerOperatorMock(baseClass: any): any {
+      const mock = jasmine.createSpyObj(baseClass.name, ['calc']);
+      providers.push({
+        provide: baseClass,
+        useValue: mock
+      });
+      return mock;
+    }
   });
 
   it('should be created', inject([CalcService], (service: CalcService) => {
@@ -31,44 +40,48 @@ describe('CalcService', () => {
 
   it('should return value from add service when operator is +', inject([CalcService], (service: CalcService) => {
     // given
-    addServiceMock.calc.and.returnValue(1337);
+
+    const expectedResult = 145874545545418;
+    mocks.AddService.calc.and.returnValue(expectedResult);
 
     // when
     const result = service.calc('+', 2, 2);
 
     // then
-    expect(addServiceMock.calc).toHaveBeenCalled();
-    expect(result).toEqual(1337);
+    expect(mocks.AddService.calc).toHaveBeenCalled();
+    expect(result).toEqual(expectedResult);
   }));
 
   it('should return value from multiply service when operator is *', inject([CalcService], (service: CalcService) => {
     // given
-    multiplyServiceMock.calc.and.returnValue(42);
+    const expectedResult = 51265184512158855;
+    mocks.MultiplyService.calc.and.returnValue(expectedResult);
 
     // when
     const result = service.calc('*', 2, 2);
 
     // then
-    expect(multiplyServiceMock.calc).toHaveBeenCalled();
-    expect(result).toEqual(42);
+    expect(mocks.MultiplyService.calc).toHaveBeenCalled();
+    expect(result).toEqual(expectedResult);
   }));
 
   it('should return value from substract service when operator is -', inject([CalcService], (service: CalcService) => {
     // given
-    substractServiceMock.calc.and.returnValue(421);
+    const expectedResult = 226584521032188;
+    mocks.SubstractService.calc.and.returnValue(expectedResult);
 
     // when
     const result = service.calc('-', 2, 2);
 
     // then
-    expect(substractServiceMock.calc).toHaveBeenCalled();
-    expect(result).toEqual(421);
+    expect(mocks.SubstractService.calc).toHaveBeenCalled();
+    expect(result).toEqual(expectedResult);
   }));
 
   it('should throw error if operator is unknown', inject([CalcService], (service: CalcService) => {
     // when
     try {
-      const result = service.calc('unknown', 2, 2);
+      service.calc('unknown', 2, 2);
       fail('should have thrown error');
     } catch (error) {
       expect(error.message).toEqual('Unknown operator unknown');
