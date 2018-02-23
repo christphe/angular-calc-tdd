@@ -1,0 +1,26 @@
+<div class="row">
+    <form class="form-row">
+        <div class="col-12">
+            <div class="btn-group btn-group-toggle" ngbRadioGroup name="operatorRadio" [(ngModel)]="operator" (ngModelChange)="onChange()">
+                <label ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" value="+"> +
+      </label>
+                <label ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" value="*"> *
+      </label>
+                <label ngbButtonLabel class="btn-primary">
+        <input ngbButton type="radio" value="-"> -
+      </label>
+            </div>
+        </div>
+        <div class="col-12 col-md-4">
+            <input name="a" type="number" class="form-control" [(ngModel)]="a" (ngModelChange)="onChange()">
+        </div>
+        <div class="col-12 col-md-4">
+            <input name="b" type="number" class="form-control" [(ngModel)]="b" (ngModelChange)="onChange()">
+        </div>
+        <div class="col-12 col-md-4">
+            <input name="result" type="number" class="form-control" [ngModel]="result" readonly>
+        </div>
+    </form>
+</div>
