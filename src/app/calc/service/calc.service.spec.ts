@@ -6,12 +6,15 @@ import { AddService } from './operations/add.service';
 import { MultiplyService } from './operations/multiply.service';
 import { SubstractService } from './operations/substract.service';
 
-const addServiceMock = jasmine.createSpyObj('AddService', ['calc']);
-const multiplyServiceMock = jasmine.createSpyObj('MultiplyService', ['calc']);
-const substractServiceMock = jasmine.createSpyObj('SubstractService', ['calc']);
+let addServiceMock;
+let multiplyServiceMock;
+let substractServiceMock;
 
 describe('CalcService', () => {
   beforeEach(() => {
+    addServiceMock = jasmine.createSpyObj('AddService', ['calc']);
+    multiplyServiceMock = jasmine.createSpyObj('MultiplyService', ['calc']);
+    substractServiceMock = jasmine.createSpyObj('SubstractService', ['calc']);
     TestBed.configureTestingModule({
       providers: [
         CalcService,
@@ -58,7 +61,7 @@ describe('CalcService', () => {
     const result = service.calc('-', 2, 2);
 
     // then
-    expect(multiplyServiceMock.calc).toHaveBeenCalled();
+    expect(substractServiceMock.calc).toHaveBeenCalled();
     expect(result).toEqual(421);
   }));
 
