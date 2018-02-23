@@ -4,9 +4,11 @@ import { CalcService } from './calc.service';
 
 import { AddService } from './operations/add.service';
 import { MultiplyService } from './operations/multiply.service';
+import { SubstractService } from './operations/substract.service';
 
 const addServiceMock = jasmine.createSpyObj('AddService', ['calc']);
 const multiplyServiceMock = jasmine.createSpyObj('MultiplyService', ['calc']);
+const substractServiceMock = jasmine.createSpyObj('SubstractService', ['calc']);
 
 describe('CalcService', () => {
   beforeEach(() => {
@@ -14,7 +16,8 @@ describe('CalcService', () => {
       providers: [
         CalcService,
         { provide: AddService, useValue: addServiceMock },
-        { provide: MultiplyService, useValue: multiplyServiceMock }
+        { provide: MultiplyService, useValue: multiplyServiceMock },
+        { provide: SubstractService, useValue: substractServiceMock }
       ]
     });
   });
@@ -45,6 +48,18 @@ describe('CalcService', () => {
     // then
     expect(multiplyServiceMock.calc).toHaveBeenCalled();
     expect(result).toEqual(42);
+  }));
+
+  it('should return value from substract service when operator is -', inject([CalcService], (service: CalcService) => {
+    // given
+    substractServiceMock.calc.and.returnValue(421);
+
+    // when
+    const result = service.calc('-', 2, 2);
+
+    // then
+    expect(multiplyServiceMock.calc).toHaveBeenCalled();
+    expect(result).toEqual(421);
   }));
 
   it('should throw error if operator is unknown', inject([CalcService], (service: CalcService) => {
